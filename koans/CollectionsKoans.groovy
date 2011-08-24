@@ -15,36 +15,36 @@ class CollectionsKoans extends Koans {
 	
 	void testCreateCollection() {
 		def list = []
-		assert __ == list.size
+		assert 0 == list.size
 	}
 
 	void testCollectionInterface() {
-		//assert [] instanceof List
+		assert [] instanceof List
 	}
 	
 	void testCollectionType() {
-		assert __ == [].class
+		assert java.util.ArrayList == [].class
 	}
 	
 	void testInitializingCollection() {
 		def list = ['a', 1, 'a', 'a', 2.5, 2.5f, 2.5d, 'hello', 7g, null, 9 as byte, ];
-		assert __ == list.size, "collections hold multiple types, duplicates and can contain an extra comma"
+		assert 11 == list.size, "collections hold multiple types, duplicates and can contain an extra comma"
 	}
 	
 	void testCollectionTruth() {
-		assertTruth __ ,[]
-		assertTruth __, ['a']
+		assertTruth false ,[]
+		assertTruth true, ['a']
 	}
 
 	void testAccessingCollections() {
 		def list = ['a', 'b', 'c', 'd', 'e'];
 		
-		assert __ == list.get(2), 'get method'
-		assert __ == list[3], 'index access'
-		assert __ == list.first(), 'first method'
-		assert __ == list.last(), 'last method'
-		assert __ == list.head(), 'head method'
-		assert __ == list.tail(), 'tail method'
+		assert 'c' == list.get(2), 'get method'
+		assert 'd' == list[3], 'index access'
+		assert 'a' == list.first(), 'first method'
+		assert 'e' == list.last(), 'last method'
+		assert 'a' == list.head(), 'head method'
+		assert ['b', 'c', 'd', 'e'] == list.tail(), 'tail method'
 	}
 	
 	void testAppendingCollections() {
@@ -54,22 +54,22 @@ class CollectionsKoans extends Koans {
 		list.addAll(['c','d'])
 		list.push('e')
 		list << 'f'
-		assert [__] == list, "add, push and << operator"
+		assert ['a', 'b', 'c', 'd', 'e', 'f'] == list, "add, push and << operator"
 		
-		assert [__] == list + 'g', "+ operator"
+		assert ['a', 'b', 'c', 'd', 'e', 'f', 'g'] == list + 'g', "+ operator"
 		
 		list += 'h'
-		assert [__] == list, "+= operator"
+		assert ['a', 'b', 'c', 'd', 'e', 'f', 'h'] == list, "+= operator"
 	}
 
 	void testInsertIntoCollections() {
 		def list = ['a','b','c'];
 		
 		list.add(1,'d')
-		assert [__] == list, "add with index"
+		assert ['a','d','b','c'] == list, "add with index"
 		
 		list.addAll(2, ['e','f'])
-		assert [__] == list, "add all with index"
+		assert ['a','d','e','f','b','c'] == list, "add all with index"
 	}
 	
 	void testUpdatingCollections() {
@@ -79,27 +79,27 @@ class CollectionsKoans extends Koans {
 		assert ['e','b','c'] == list, 'subscript index update'
 		
 		assert 'c' == list.set(2, 'f'), 'element replacement'
-		assert [__] == list
+		assert ['e','b','f'] == list
 	}
 		
 	void testChaninedAppending() {
 		def list = ['a']
 		
 		list << 'g' << 'h'
-		assert [__] == list
+		assert ['a', 'g' ,'h'] == list
 	}
 	
 	void testAppendingLists() {
 		def list = ['a']
 		
 		list << ['i','j']
-		assert [__] == list
+		assert ['a', ['i', 'j']] == list
 	}
 
 	void testFlatteningLists() {
 		def list = [['a',['b','b']], ['c','d'], 'e'];
 		
-		assert [__] == list.flatten()
+		assert ['a', 'b', 'b', 'c', 'd', 'e'] == list.flatten()
 	}
 
 	
@@ -107,25 +107,25 @@ class CollectionsKoans extends Koans {
 		int beyondBounds = 5
 		def list = ['a', 'b','c'];
 		
-		assert __ == list[beyondBounds], "accessing element beyond current size"
+		assert null == list[beyondBounds], "accessing element beyond current size"
 		
 		list[beyondBounds] = 'j'
-		assert [__] == list, "setting element beyond current size"
+		assert ['a', 'b', 'c', null, null, 'j'] == list, "setting element beyond current size"
 	}
 
 	void testNegativeIndices() {
 		def list = ['a', 'b', 'c', 'd', 'e'];
 		
-		assert __ == list[-1], "-1 indices"
-		assert __ == list[-2], "-2 indices"
+		assert 'e' == list[-1], "-1 indices"
+		assert 'd' == list[-2], "-2 indices"
 	}
 	
 	void testSlicingCollection() {
 		def list = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j'];
 		
-		assert [__] == list[1..3], "range slicing"
-		assert [__] == list[0,2,4], "index slicing"	
-		assert [__] == list[0,2,4,5..8], "combination of index and range slicing"
+		assert ['b', 'c', 'd'] == list[1..3], "range slicing"
+		assert ['a', 'c', 'e'] == list[0,2,4], "index slicing"	
+		assert ['a', 'c', 'e', 'f', 'g', 'h', 'i'] == list[0,2,4,5..8], "combination of index and range slicing"
 	}
 	
 	void testEachClosure() {
@@ -133,7 +133,7 @@ class CollectionsKoans extends Koans {
 		
 		['a', 'b', 'c'].each{ items += "Item: $it \n" }
 
-		assert __ == items
+		assert "Item: a \nItem: b \nItem: c \n" == items
 	}
 	
 	void testEachIndexClosure() {
@@ -141,7 +141,6 @@ class CollectionsKoans extends Koans {
 	
 		['a', 'b', 'c'].eachWithIndex{ it, i -> items += "$i: $it\n" }
 		
-		assert __ == items
+		assert "0: a\n1: b\n2: c\n" == items
 	}
-	
 }
