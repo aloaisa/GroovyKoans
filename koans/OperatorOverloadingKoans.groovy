@@ -105,7 +105,7 @@ class OperatorOverloadingKoans extends Koans  {
 	void testLeftShiftOperator() {
 		holder.value = "left"
 		holder << "Shift"
-		//assertEquals "leftShift", holder.value
+		assertEquals "leftShift", holder.value.toString()
 	}
 	
 	void testRightOperator() {
